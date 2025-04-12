@@ -114,5 +114,3 @@ def save_image_to_file(matrix, filename = 'result.txt'):
     np.savetxt(filename, matrix.astype(int), fmt='%g', delimiter=' ')
 
 
-
-def add_volcano
