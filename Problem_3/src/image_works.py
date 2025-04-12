@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import random
 
 
 def read_image(file_name) -> np.array:
@@ -116,11 +117,11 @@ def save_image_to_file(matrix, filename = 'result.txt'):
 
 def apply_threshold(image, threshold=128):
     # Применяем пороговое значение
-    binary_image = np.where(image > threshold, 511, 0).astype(np.uint8)
+    binary_image = np.where(image > threshold, 511, 0).astype(np.uint16)
     return binary_image
 
 
-def generate_clouds(width=1000, height=1000, scale=100, threshold=128):
+def generate_clouds(width=1000, height=1000, scale=100, threshold=256):
     # Генерация шума Перлина
     perlin_noise = generate_perlin_noise(width, height, scale)
 
@@ -132,3 +133,22 @@ def generate_clouds(width=1000, height=1000, scale=100, threshold=128):
 
     # Преобразование в формат изображения
     return cloud_mask
+
+
+def generate_points(image, diam = 2, brightness_factor = 5):
+
+    # Generate 10 random blocks
+    num_blocks = 10
+    for _ in range(num_blocks):
+        # Randomly select the top-left corner of the block
+        x = random.randint(0, image.shape[0] - diam)
+        y = random.randint(0, image.shape[1] - diam)
+        
+        # Increase the brightness of the block by the specified factor
+        image[x:x+diam, y:y+diam] *= brightness_factor
+        
+        # Ensure values don't exceed the maximum intensity (255 for an 8-bit image)
+        image[x:x+diam, y:y+diam] = np.clip(image[x:x+diam, y:y+diam], 0, 512)
+
+    # Display the modified image matrix
+    return image
