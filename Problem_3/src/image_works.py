@@ -114,3 +114,21 @@ def save_image_to_file(matrix, filename = 'result.txt'):
     np.savetxt(filename, matrix.astype(int), fmt='%g', delimiter=' ')
 
 
+def apply_threshold(image, threshold=128):
+    # Применяем пороговое значение
+    binary_image = np.where(image > threshold, 511, 0).astype(np.uint8)
+    return binary_image
+
+
+def generate_clouds(width=1000, height=1000, scale=100, threshold=128):
+    # Генерация шума Перлина
+    perlin_noise = generate_perlin_noise(width, height, scale)
+
+    # Применение порогового значения
+    cloud_mask = apply_threshold(perlin_noise, threshold)
+
+    # Инверсия фона (облака белые, фон черный)
+    cloud_mask = cloud_mask
+
+    # Преобразование в формат изображения
+    return cloud_mask
