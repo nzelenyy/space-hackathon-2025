@@ -104,3 +104,13 @@ def generate_deffected_pixels(image = np.zeros([2000,2000]), prob = 0.001, min_a
     image.flat[flat_indices] = replacement_values
     
     return image
+
+def save_image_to_file(matrix, filename = 'result.txt'):
+    """
+    Writes a numpy matrix to a text file with space-separated values and line breaks.
+    
+    Parameters:
+        matrix (np.ndarray): The matrix to be written to file
+        filename (str): Name/path of the output text file
+    """
+    np.savetxt(filename, matrix.astype(int), fmt='%g', delimiter=' ')
