@@ -90,13 +90,11 @@ def generate_perlin_noise(width, height, scale=1000):
 
 
 def generate_deffected_pixels(image = np.zeros([2000,2000]), prob = 0.001, min_ampl = 450, max_ampl = 512):
-    print(1)
     total_elements = image.size
     num_to_replace = int(np.ceil(total_elements * prob))
     
     # Generate random indices for replacement
     flat_indices = np.random.choice(total_elements, num_to_replace, replace=False)
-    print(flat_indices)
     # Generate replacement values (450-512 inclusive)
     replacement_values = np.random.randint(min_ampl, max_ampl+1, num_to_replace)
     
@@ -114,3 +112,7 @@ def save_image_to_file(matrix, filename = 'result.txt'):
         filename (str): Name/path of the output text file
     """
     np.savetxt(filename, matrix.astype(int), fmt='%g', delimiter=' ')
+
+
+
+def add_volcano
